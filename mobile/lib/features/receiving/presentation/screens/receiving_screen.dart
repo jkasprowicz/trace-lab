@@ -86,10 +86,7 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
         ),
       );
 
-      Navigator.of(context).pushNamedAndRemoveUntil(
-        AppRoutes.home,
-        (route) => false,
-      );
+      Navigator.of(context).pop(true);
     } catch (error) {
       if (!mounted) return;
 
@@ -98,12 +95,6 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
           content: Text('Failed to register receiving: $error'),
         ),
       );
-    } finally {
-      if (!mounted) return;
-
-      setState(() {
-        _isSubmitting = false;
-      });
     }
   }
 

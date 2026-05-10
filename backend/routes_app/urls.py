@@ -6,6 +6,7 @@ from .views import (
     RouteFinishView,
     RouteListCreateView,
     RouteReceivingCreateView,
+    PendingReceivingRoutesView,
 )
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     path("routes/<int:route_id>/collections/", RouteCollectionListCreateView.as_view()),
     path("routes/<int:route_id>/finish/", RouteFinishView.as_view()),
     path("routes/<int:route_id>/receiving/", RouteReceivingCreateView.as_view(), name="route-receiving"),
+    path("routes/pending-receiving/", PendingReceivingRoutesView.as_view(), name="pending-receiving-routes"),
 ]

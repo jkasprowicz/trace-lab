@@ -100,3 +100,15 @@ class RouteReceivingCreateView(APIView):
             ReceivingSerializer(receiving).data,
             status=status.HTTP_201_CREATED,
         )
+
+class PendingReceivingRoutesView(APIView):
+    permission_classes = [IsAuthenticated, IsReceiverOrAdmin]
+
+    def get(self, request):
+        routes = Route.objects.filter(
+            status=Route.Status.FINISHED,
+            receiving__isnull=True,
+        ).order_by("-finished_at")
+
+        serializer = RouteSerializer(routes, many=True)
+        return Response(serializer.data)
