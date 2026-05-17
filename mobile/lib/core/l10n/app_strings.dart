@@ -39,6 +39,31 @@ class AppStrings {
   static const integrityStatus = 'Condição das amostras';
   static const notes = 'Observações';
   static const confirmReceiving = 'Confirmar recebimento';
+  static const receivingTitle = 'Recebimento';
+  static const registerReceivingTitle = 'Registrar recebimento';
+  static const receivingIntro =
+      'Finalize o ciclo de transporte registrando os dados de recebimento desta rota.';
+  static const routeContext = 'Contexto da rota';
+  static const routeLabel = 'Rota';
+  static const vehicleLabel = 'Veículo';
+  static const shiftLabel = 'Turno';
+  static const bagIdLabel = 'Identificação da bolsa';
+  static const receivingDetails = 'Detalhes do recebimento';
+  static const receivingDetailsDescription =
+      'Registre quem recebeu a rota, a temperatura de recebimento e a condição das amostras.';
+  static const receiverNameHint = 'Ex.: João Kasprowicz';
+  static const receivingTemperatureLabel = 'Temperatura de recebimento (°C)';
+  static const temperatureHint = 'Ex.: 6,1';
+  static const notesHint = 'Adicione observações do recebimento';
+  static const integrityStatusOk = 'OK';
+  static const integrityStatusRestricted = 'Com ressalva';
+  static const integrityStatusRejected = 'Rejeitado';
+  static const requiredSuffix = 'é obrigatório';
+  static const temperatureRequired = 'A temperatura é obrigatória.';
+  static const integrityStatusRequired = 'A condição das amostras é obrigatória.';
+  static const receivingRegisteredSuccessfully =
+      'Recebimento registrado com sucesso.';
+  static const receivingSaveInProgress = 'Salvando...';
 
   // Receiving success
   static const receivingSuccessTitle = 'Recebimento concluído';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/app/routes.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/widgets/app_card.dart';
 import 'package:mobile/core/widgets/app_primary_button.dart';
@@ -38,21 +38,21 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
 
   String? _validateRequiredText(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
-      return '$fieldName is required';
+      return '$fieldName ${AppStrings.requiredSuffix}';
     }
     return null;
   }
 
   String? _validateTemperature(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Temperature is required';
+      return AppStrings.temperatureRequired;
     }
 
     final normalized = value.replaceAll(',', '.');
     final parsed = double.tryParse(normalized);
 
     if (parsed == null) {
-      return 'Enter a valid temperature';
+      return AppStrings.invalidTemperature;
     }
 
     return null;
@@ -82,7 +82,7 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Receiving registered successfully'),
+          content: Text(AppStrings.receivingRegisteredSuccessfully),
         ),
       );
 
@@ -92,7 +92,7 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to register receiving: $error'),
+          content: Text('${AppStrings.receivingSaveError}: $error'),
         ),
       );
     }
@@ -131,7 +131,7 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Receiving'),
+        title: const Text(AppStrings.receivingTitle),
         backgroundColor: Colors.transparent,
       ),
       body: Container(
@@ -182,7 +182,7 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Register receiving',
+                          AppStrings.registerReceivingTitle,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
@@ -192,7 +192,7 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Finalize the transport cycle by recording the receiving data for this route.',
+                          AppStrings.receivingIntro,
                           style: TextStyle(
                             color: Colors.white.withAlpha(220),
                             fontSize: 14,
@@ -209,7 +209,7 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Route context',
+                          AppStrings.routeContext,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -217,13 +217,13 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
                           ),
                         ),
                         const SizedBox(height: 12),
-                        Text('Route: ${route.routeName}'),
+                        Text('${AppStrings.routeLabel}: ${route.routeName}'),
                         const SizedBox(height: 6),
-                        Text('Vehicle: ${_formatVehicle(route.vehicleType)}'),
+                        Text('${AppStrings.vehicleLabel}: ${_formatVehicle(route.vehicleType)}'),
                         const SizedBox(height: 6),
-                        Text('Shift: ${_formatShift(route.shift)}'),
+                        Text('${AppStrings.shiftLabel}: ${_formatShift(route.shift)}'),
                         const SizedBox(height: 6),
-                        Text('Bag ID: ${route.bagId}'),
+                        Text('${AppStrings.bagIdLabel}: ${route.bagId}'),
                       ],
                     ),
                   ),
@@ -234,7 +234,7 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Receiving details',
+                          AppStrings.receivingDetails,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -243,7 +243,7 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
                         ),
                         const SizedBox(height: 6),
                         const Text(
-                          'Record who received the route, receiving temperature and integrity status.',
+                          AppStrings.receivingDetailsDescription,
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.textSecondary,
@@ -252,17 +252,17 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
                         ),
                         const SizedBox(height: 18),
                         ReceivingTextField(
-                          label: 'Receiver name',
-                          hintText: 'e.g. João Kasprowicz',
+                          label: AppStrings.receiverName,
+                          hintText: AppStrings.receiverNameHint,
                           controller: _receiverNameController,
                           prefixIcon: Icons.person_rounded,
                           validator: (value) =>
-                              _validateRequiredText(value, 'Receiver name'),
+                              _validateRequiredText(value, AppStrings.receiverName),
                         ),
                         const SizedBox(height: 16),
                         ReceivingTextField(
-                          label: 'Receiving temperature (°C)',
-                          hintText: 'e.g. 6.1',
+                          label: AppStrings.receivingTemperatureLabel,
+                          hintText: AppStrings.temperatureHint,
                           controller: _temperatureController,
                           prefixIcon: Icons.thermostat_rounded,
                           keyboardType: const TextInputType.numberWithOptions(
@@ -272,21 +272,21 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
                         ),
                         const SizedBox(height: 16),
                         ReceivingDropdownField<String>(
-                          label: 'Integrity status',
+                          label: AppStrings.integrityStatus,
                           value: _selectedIntegrityStatus,
                           prefixIcon: Icons.verified_rounded,
                           items: const [
                             DropdownMenuItem(
                               value: 'ok',
-                              child: Text('OK'),
+                              child: Text(AppStrings.integrityStatusOk),
                             ),
                             DropdownMenuItem(
                               value: 'restricted',
-                              child: Text('Com ressalva'),
+                              child: Text(AppStrings.integrityStatusRestricted),
                             ),
                             DropdownMenuItem(
                               value: 'rejected',
-                              child: Text('Rejeitado'),
+                              child: Text(AppStrings.integrityStatusRejected),
                             ),
                           ],
                           onChanged: (value) {
@@ -296,15 +296,15 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
                           },
                           validator: (value) {
                             if (value == null || value.trim().isEmpty) {
-                              return 'Integrity status is required';
+                              return AppStrings.integrityStatusRequired;
                             }
                             return null;
                           },
                         ),
                         const SizedBox(height: 16),
                         ReceivingTextField(
-                          label: 'Notes',
-                          hintText: 'Add receiving observations',
+                          label: AppStrings.notes,
+                          hintText: AppStrings.notesHint,
                           controller: _notesController,
                           prefixIcon: Icons.notes_rounded,
                           maxLines: 4,
@@ -312,8 +312,8 @@ class _ReceivingScreenState extends State<ReceivingScreen> {
                         const SizedBox(height: 22),
                         AppPrimaryButton(
                           label: _isSubmitting
-                              ? 'Saving...'
-                              : 'Confirm receiving',
+                              ? AppStrings.receivingSaveInProgress
+                              : AppStrings.confirmReceiving,
                           icon: _isSubmitting
                               ? Icons.hourglass_top_rounded
                               : Icons.check_circle_outline_rounded,
