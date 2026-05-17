@@ -90,6 +90,11 @@ class AppStrings {
       'Registre o ponto de retirada e a temperatura da coleta para esta rota.';
   static const locationNameLabel = 'Nome do local';
   static const locationNameHint = 'Ex.: Unidade Centro';
+  static const useCurrentLocation = 'Usar localização atual';
+  static const locationCaptureNotImplemented =
+      'Captura de localização ainda não implementada.';
+  static const collectionLocationPreparationDescription =
+      'Você pode informar o nome do local manualmente ou preparar o uso da localização atual para uma futura integração.';
   static const collectionTemperatureFieldLabel = 'Temperatura (°C)';
   static const collectionTemperatureHint = 'Ex.: 5,2';
   static const collectionNotesHint =

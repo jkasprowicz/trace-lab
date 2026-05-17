@@ -55,6 +55,16 @@ class _AddCollectionScreenState extends State<AddCollectionScreen> {
     return null;
   }
 
+  Future<void> _useCurrentLocation() async {
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text(AppStrings.locationCaptureNotImplemented),
+      ),
+    );
+  }
+
   Future<void> _submit(int routeId) async {
     final isValid = _formKey.currentState?.validate() ?? false;
     if (!isValid) return;
@@ -148,6 +158,15 @@ class _AddCollectionScreenState extends State<AddCollectionScreen> {
                             height: 1.4,
                           ),
                         ),
+                        const SizedBox(height: 6),
+                        const Text(
+                          AppStrings.collectionLocationPreparationDescription,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: AppColors.textSecondary,
+                            height: 1.4,
+                          ),
+                        ),
                         const SizedBox(height: 18),
                         CollectionTextField(
                           label: AppStrings.locationNameLabel,
@@ -159,6 +178,15 @@ class _AddCollectionScreenState extends State<AddCollectionScreen> {
                                 value,
                                 AppStrings.locationNameLabel,
                               ),
+                        ),
+                        const SizedBox(height: 12),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: OutlinedButton.icon(
+                            onPressed: _isSubmitting ? null : _useCurrentLocation,
+                            icon: const Icon(Icons.my_location_rounded),
+                            label: const Text(AppStrings.useCurrentLocation),
+                          ),
                         ),
                         const SizedBox(height: 16),
                         CollectionTextField(
