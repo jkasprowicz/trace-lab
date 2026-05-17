@@ -1,65 +1,66 @@
 # Architecture
 
-## Frontend
-
-The Flutter app should use feature-based organization.
-
-Recommended pattern:
+## Repository layout
 
 ```text
-lib/
-├── core/
-│   ├── routing/
-│   ├── theme/
-│   ├── auth/
-│   ├── networking/
-│   └── l10n/
-├── features/
-│   ├── driver/
-│   │   ├── data/
-│   │   ├── domain/
-│   │   └── presentation/
-│   ├── receiving/
-│   │   ├── data/
-│   │   ├── domain/
-│   │   └── presentation/
-│   ├── routes/
-│   ├── auth/
-│   └── admin/
-└── main.dart
+.
+├── .agent/
+├── backend/
+│   ├── accounts/
+│   ├── config/
+│   ├── core/
+│   ├── routes_app/
+│   └── manage.py
+├── docs/
+├── mobile/
+│   ├── lib/
+│   │   ├── app/
+│   │   ├── core/
+│   │   │   ├── config/
+│   │   │   ├── l10n/
+│   │   │   ├── network/
+│   │   │   ├── theme/
+│   │   │   └── widgets/
+│   │   └── features/
+│   └── test/
+└── skills/
 ```
 
-## Flutter conventions
+## Frontend
 
-- Screens belong in `presentation/screens`.
-- Reusable widgets belong in `presentation/widgets`.
-- DTOs belong in `data/dto`.
-- API services belong in `data/services`.
-- Repositories belong in `data/repositories`.
-- User-facing strings belong in `lib/core/l10n/app_strings.dart`.
-- Navigation should be centralized where possible.
-- Role-based navigation must be explicit.
+The Flutter app lives in `mobile/`.
+
+Conventions currently in use:
+
+- Feature-based organization under `mobile/lib/features/`.
+- Screens in `presentation/screens`.
+- Reusable widgets in `presentation/widgets`.
+- DTOs in `data/dto` when the feature uses DTOs.
+- API services in `data/services`.
+- Domain models in `domain/models`.
+- App-wide strings in `mobile/lib/core/l10n/app_strings.dart`.
+- Shared app routing in `mobile/lib/app/routes.dart`.
+
+Maintenance guidance:
+
+- Preserve existing feature boundaries.
+- Keep role-based navigation explicit.
+- Avoid putting API parsing or domain rules directly inside widgets.
 
 ## Backend
 
-Recommended Django structure:
+The Django app lives in `backend/`.
 
-```text
-backend/
-├── config/
-├── apps/
-│   ├── users/
-│   ├── routes/
-│   ├── receiving/
-│   └── reports/
-├── manage.py
-└── requirements.txt
-```
+Current structure highlights:
 
-## Django conventions
+- `backend/config/`: project configuration.
+- `backend/accounts/`: authentication and account-related behavior.
+- `backend/routes_app/`: route and transport-related backend logic.
+- `backend/core/`: shared backend components.
 
-- Models define persistent domain entities.
-- Serializers define API contracts.
-- Views/ViewSets expose API behavior.
-- Permissions enforce role access.
-- Do not put complex business logic directly inside views when it can be isolated in services.
+Maintenance guidance:
+
+- Keep models, serializers and views aligned.
+- Do not change API contracts without checking the Flutter client.
+- Keep permissions and role separation explicit.
+- Preserve audit and traceability fields in transport flows.

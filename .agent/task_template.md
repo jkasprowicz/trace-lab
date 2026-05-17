@@ -1,10 +1,10 @@
-# Task Template for LLM/Codex
+# Task Template
 
-Use this format when requesting code changes.
+Use this structure when requesting maintenance work in TransportApp.
 
 ## Task
 
-Describe the change clearly.
+Describe the requested change clearly.
 
 ## Current behavior
 
@@ -12,17 +12,21 @@ Describe what is happening now.
 
 ## Expected behavior
 
-Describe what should happen.
+Describe what should happen after the fix.
 
-## Relevant flow
+## Affected flow
 
 Driver / Receiver / Admin / Backend / API / Other
+
+## Relevant files or areas
+
+List screens, widgets, services, serializers, routes or modules that are likely involved.
 
 ## Constraints
 
 - Keep changes minimal.
 - Do not rewrite unrelated files.
-- Preserve current architecture.
+- Preserve the current architecture.
 - Do not change API contracts unless necessary.
 - Keep user-facing text in Brazilian Portuguese.
 
@@ -34,7 +38,7 @@ Driver / Receiver / Admin / Backend / API / Other
 
 ## Required output
 
-The agent must return:
+The agent should report:
 
 1. Diagnosis.
 2. Files inspected.

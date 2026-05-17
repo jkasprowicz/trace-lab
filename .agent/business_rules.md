@@ -1,9 +1,3 @@
-
----
-
-## 5. Arquivo `.agent/business_rules.md`
-
-```md
 # Business Rules
 
 ## Roles
@@ -17,9 +11,9 @@ The Driver can:
 - register pickup information
 - register pickup temperature
 - record observations during transport
-- finalize delivery flow when applicable
+- finalize delivery steps when applicable
 
-The Driver should not perform the Receiver's final receiving workflow.
+The Driver must not complete the Receiver's final receiving workflow.
 
 ### Receiver
 
@@ -32,7 +26,7 @@ The Receiver can:
 - add receiving notes
 - confirm receiving
 
-After confirming receiving, the Receiver must return to Home Receiver.
+After confirming receiving, the app must return to Home Receiver.
 
 ### Admin
 
@@ -43,26 +37,28 @@ The Admin can:
 - audit traceability
 - configure users, routes and locations when implemented
 
-## Temperature
-
-The app must preserve:
-
-- pickup temperature
-- receiving temperature
-- timestamp of each temperature
-- responsible user
-- route/location context
-
 ## Traceability
 
 Every operational event should preserve:
 
 - route ID
-- user
-- role
-- date/time
+- responsible user
+- responsible role
+- timestamp
 - location when applicable
 - relevant observations
+
+## Temperature
+
+The app must preserve distinct records for:
+
+- pickup temperature
+- receiving temperature
+- timestamp of each temperature entry
+- user responsible for each entry
+- route or location context
+
+Pickup temperature and receiving temperature must not overwrite one another.
 
 ## User-facing language
 
@@ -82,6 +78,8 @@ All visible interface text must be in Portuguese:
 
 Internal code identifiers may remain in English.
 
-## Critical rule
+## Critical navigation rule
 
-A completed Receiver flow must never navigate to a Driver screen.
+- A completed Driver flow must return to a Driver screen.
+- A completed Receiver flow must return to a Receiver screen.
+- A completed Receiver flow must never navigate to a Driver screen.

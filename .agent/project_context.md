@@ -1,24 +1,29 @@
+# Project Context
 
----
+TransportApp is a traceability system for biological sample transport.
 
-## 3. Arquivo `.agent/project_context.md`
+The repository is split into two main applications:
 
-```md
-# Project Context — TransportApp
+- `mobile/`: Flutter client used by Driver, Receiver and Admin flows.
+- `backend/`: Django + Django REST API that supports transport, receiving and audit data.
 
-TransportApp is an application for traceability of biological sample transport.
+The system is responsible for recording:
 
-The system records:
-
-- who collected the samples
-- where samples were collected
-- route start and end
+- who handled the samples
+- where the collection or receiving event happened
+- route start and completion
 - pickup temperature
 - receiving temperature
-- sample integrity at arrival
-- timestamps
-- user role responsible for each action
+- integrity status at arrival
+- timestamps for operational events
+- the role responsible for each action
 
-The main goal is to reduce failures in the pre-analytical phase by improving traceability, temperature control and accountability during transport.
+The main product goal is to reduce failures in the pre-analytical phase by improving traceability, temperature control and accountability during transport.
 
-The project currently has existing Flutter screens and Django API flows. The agent must prioritize maintaining and improving the existing implementation instead of rebuilding the application from scratch.
+## Maintenance focus
+
+- Prefer maintaining the existing implementation over rewriting features.
+- Keep Driver and Receiver flows explicitly separated.
+- Preserve route, temperature, timestamp and responsible-user information.
+- Treat `mobile/lib/core/l10n/app_strings.dart` as the canonical Flutter strings file.
+- Use `lib/core/l10n/app_strings.dart` only as an agent-compatibility entry point when needed.

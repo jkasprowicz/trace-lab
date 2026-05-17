@@ -4,18 +4,18 @@ Before considering a task complete, verify:
 
 ## Flutter
 
-- Does `flutter analyze` pass?
-- Does the app compile?
+- Does `flutter analyze` pass in `mobile/`?
+- Do the changed screens or widgets compile?
 - Is navigation role-correct?
-- Are Driver and Receiver flows separated?
-- Are DTO field names compatible with API response?
+- Are Driver and Receiver flows still separated?
+- Are DTO field names compatible with the API response?
 - Are null values handled safely?
-- Is state updated after success/error?
+- Is state updated after success and error states?
 - Are all user-facing strings in Brazilian Portuguese?
 
 ## Django
 
-- Does `python manage.py check` pass?
+- Does `python manage.py check` pass in `backend/`?
 - Are serializers compatible with frontend DTOs?
 - Are permissions appropriate for role access?
 - Are migrations needed?
@@ -25,7 +25,7 @@ Before considering a task complete, verify:
 
 - Is temperature traceability preserved?
 - Is route ID preserved?
-- Is responsible user preserved?
+- Is the responsible user preserved?
 - Is receiving distinct from pickup?
 - Does success navigation return to the correct role home?
 
