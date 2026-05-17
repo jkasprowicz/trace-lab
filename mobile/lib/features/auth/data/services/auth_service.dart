@@ -1,4 +1,5 @@
 import 'package:mobile/core/network/api_client.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/features/auth/data/dto/login_response_dto.dart';
 
 class AuthException implements Exception {
@@ -33,9 +34,7 @@ class AuthService {
 
       return loginResponse;
     } catch (_) {
-      throw const AuthException(
-        'Usuário ou senha incorretos. Verifique suas credenciais e tente novamente.',
-      );
+      throw const AuthException(AppStrings.invalidCredentials);
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/features/auth/domain/models/auth_user.dart';
 
 class AdminDashboardScreen extends StatelessWidget {
@@ -13,10 +14,10 @@ class AdminDashboardScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Admin Dashboard'),
+        title: const Text(AppStrings.adminDashboardTitle),
       ),
       body: Center(
-        child: Text('Admin: ${user.username}'),
+        child: Text('${AppStrings.adminLabel}: ${user.username}'),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/features/auth/data/services/auth_service.dart';
 import 'package:mobile/features/auth/presentation/screens/role_gate_screen.dart';
@@ -31,7 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   String? _validateRequired(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
-      return '$fieldName é obrigatório';
+      return '$fieldName ${AppStrings.requiredSuffix}';
     }
     return null;
   }
@@ -121,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              'Entrar',
+                              AppStrings.loginTitle,
                               style: TextStyle(
                                 fontSize: 26,
                                 fontWeight: FontWeight.w900,
@@ -130,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                             const SizedBox(height: 6),
                             const Text(
-                              'Acesse sua área operacional no TraceLab.',
+                              AppStrings.loginSubtitle,
                               style: TextStyle(
                                 fontSize: 14,
                                 color: AppColors.textSecondary,
@@ -141,11 +142,11 @@ class _LoginScreenState extends State<LoginScreen> {
                             TextFormField(
                               controller: _usernameController,
                               validator: (value) =>
-                                  _validateRequired(value, 'Usuário'),
+                                  _validateRequired(value, AppStrings.usernameLabel),
                               textInputAction: TextInputAction.next,
                               decoration: InputDecoration(
-                                labelText: 'Usuário',
-                                hintText: 'Ex: driver1',
+                                labelText: AppStrings.usernameLabel,
+                                hintText: AppStrings.usernameHint,
                                 prefixIcon:
                                     const Icon(Icons.person_outline_rounded),
                                 filled: true,
@@ -174,11 +175,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               controller: _passwordController,
                               obscureText: _obscurePassword,
                               validator: (value) =>
-                                  _validateRequired(value, 'Senha'),
+                                  _validateRequired(value, AppStrings.passwordLabel),
                               onFieldSubmitted: (_) => _login(),
                               decoration: InputDecoration(
-                                labelText: 'Senha',
-                                hintText: 'Digite sua senha',
+                                labelText: AppStrings.passwordLabel,
+                                hintText: AppStrings.passwordHint,
                                 prefixIcon:
                                     const Icon(Icons.lock_outline_rounded),
                                 suffixIcon: IconButton(
@@ -262,7 +263,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                       : Icons.login_rounded,
                                 ),
                                 label: Text(
-                                  _isLoading ? 'Entrando...' : 'Entrar',
+                                  _isLoading
+                                      ? AppStrings.loginLoading
+                                      : AppStrings.loginButton,
                                   style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w800,
@@ -283,7 +286,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     const SizedBox(height: 18),
                     const Text(
-                      'Acesso restrito a usuários autorizados.',
+                      AppStrings.restrictedAccessMessage,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColors.textSecondary,
@@ -340,7 +343,7 @@ class _LoginBrandHeader extends StatelessWidget {
         ),
         const SizedBox(height: 6),
         const Text(
-          'Sample transport intelligence',
+          AppStrings.appTagline,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: AppColors.textSecondary,

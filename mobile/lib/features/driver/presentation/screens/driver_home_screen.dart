@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/app/routes.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/widgets/app_primary_button.dart';
 import 'package:mobile/features/auth/data/services/auth_service.dart';
@@ -53,7 +54,7 @@ class DriverHomeScreen extends StatelessWidget {
                 const _LiveStatusCard(),
                 const SizedBox(height: 22),
                 AppPrimaryButton(
-                  label: 'Start route',
+                  label: AppStrings.startRoute,
                   icon: Icons.play_arrow_rounded,
                   onPressed: () {
                     Navigator.of(context).pushNamed(AppRoutes.startRoute);
@@ -109,7 +110,7 @@ class _DriverHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Driver mode',
+                AppStrings.driverMode,
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
@@ -131,7 +132,7 @@ class _DriverHeader extends StatelessWidget {
         IconButton.filledTonal(
           onPressed: onLogout,
           icon: const Icon(Icons.logout_rounded),
-          tooltip: 'Logout',
+          tooltip: AppStrings.logoutButton,
         ),
       ],
     );
@@ -192,7 +193,7 @@ class _LiveStatusCard extends StatelessWidget {
                     ),
                     SizedBox(width: 8),
                     Text(
-                      'READY',
+                      AppStrings.driverReadyStatus,
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w700,
@@ -218,7 +219,7 @@ class _LiveStatusCard extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           const Text(
-            'Ready to start a new sample route?',
+            AppStrings.driverReadyTitle,
             style: TextStyle(
               color: Colors.white,
               fontSize: 29,
@@ -228,7 +229,7 @@ class _LiveStatusCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            'Start your route, register each pickup point and keep the transport timeline traceable.',
+            AppStrings.driverReadyDescription,
             style: TextStyle(
               color: Colors.white.withAlpha(220),
               fontSize: 15,
@@ -240,14 +241,14 @@ class _LiveStatusCard extends StatelessWidget {
             children: [
               _MiniLiveMetric(
                 icon: Icons.route_rounded,
-                label: 'Route',
-                value: 'Not started',
+                label: AppStrings.routeLabel,
+                value: AppStrings.routeNotStarted,
               ),
               const SizedBox(width: 12),
               _MiniLiveMetric(
                 icon: Icons.thermostat_rounded,
-                label: 'Temp',
-                value: 'Manual',
+                label: AppStrings.temperatureShortLabel,
+                value: AppStrings.manualMode,
               ),
             ],
           ),
@@ -318,20 +319,20 @@ class _DriverQuickInfo extends StatelessWidget {
       children: const [
         _InfoTile(
           icon: Icons.add_location_alt_rounded,
-          title: 'Pickup events',
-          subtitle: 'Register each stop with temperature and notes.',
+          title: AppStrings.pickupEventsTitle,
+          subtitle: AppStrings.pickupEventsDescription,
         ),
         SizedBox(height: 12),
         _InfoTile(
           icon: Icons.timeline_rounded,
-          title: 'Live timeline',
-          subtitle: 'Every route event will be logged chronologically.',
+          title: AppStrings.liveTimelineTitle,
+          subtitle: AppStrings.liveTimelineDescription,
         ),
         SizedBox(height: 12),
         _InfoTile(
           icon: Icons.verified_rounded,
-          title: 'Traceability',
-          subtitle: 'Route completion will prepare the receiving step.',
+          title: AppStrings.traceabilityTitle,
+          subtitle: AppStrings.traceabilityDescription,
         ),
       ],
     );

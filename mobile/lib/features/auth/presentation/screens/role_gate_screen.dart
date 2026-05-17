@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/features/admin/presentation/screens/admin_dashboard_screen.dart';
 import 'package:mobile/features/auth/domain/models/auth_user.dart';
 import 'package:mobile/features/driver/presentation/screens/driver_home_screen.dart';
@@ -24,7 +25,7 @@ class RoleGateScreen extends StatelessWidget {
       default:
         return const Scaffold(
           body: Center(
-            child: Text('Unauthorized role'),
+            child: Text(AppStrings.unauthorizedRole),
           ),
         );
     }

@@ -5,10 +5,19 @@ class AppStrings {
 
   // Auth
   static const loginTitle = 'Entrar';
+  static const loginSubtitle = 'Acesse sua área operacional no TraceLab.';
+  static const loginLoading = 'Acessando...';
   static const emailLabel = 'E-mail';
+  static const usernameLabel = 'Usuário';
+  static const usernameHint = 'Ex.: driver1';
   static const passwordLabel = 'Senha';
+  static const passwordHint = 'Digite sua senha';
   static const loginButton = 'Acessar';
   static const logoutButton = 'Sair';
+  static const restrictedAccessMessage =
+      'Acesso restrito a usuários autorizados.';
+  static const unauthorizedRole = 'Perfil não autorizado';
+  static const appTagline = 'Inteligência no transporte de amostras';
 
   // Common
   static const continueButton = 'Continuar';
@@ -18,16 +27,39 @@ class AppStrings {
   static const backButton = 'Voltar';
   static const requiredField = 'Campo obrigatório';
   static const genericError = 'Não foi possível concluir a operação.';
+  static const invalidCredentials =
+      'Usuário ou senha incorretos. Verifique suas credenciais e tente novamente.';
   static const loading = 'Carregando...';
   static const noRecordsFound = 'Nenhum registro encontrado.';
 
   // Driver
   static const driverHomeTitle = 'Início do motorista';
+  static const driverMode = 'Modo motorista';
+  static const driverReadyStatus = 'PRONTO';
+  static const driverReadyTitle = 'Pronto para iniciar uma nova rota de amostras?';
+  static const driverReadyDescription =
+      'Inicie sua rota, registre cada ponto de coleta e mantenha a linha do tempo do transporte rastreável.';
   static const startRoute = 'Iniciar rota';
+  static const routeNotStarted = 'Não iniciada';
+  static const manualMode = 'Manual';
   static const assignedRoutes = 'Rotas atribuídas';
+  static const temperatureShortLabel = 'Temp.';
+  static const pickupEventsTitle = 'Eventos de coleta';
+  static const pickupEventsDescription =
+      'Registre cada parada com temperatura e observações.';
+  static const liveTimelineTitle = 'Linha do tempo';
+  static const liveTimelineDescription =
+      'Cada evento da rota será registrado em ordem cronológica.';
+  static const traceabilityTitle = 'Rastreabilidade';
+  static const traceabilityDescription =
+      'A conclusão da rota preparará a etapa de recebimento.';
   static const registerPickupTemperature = 'Registrar temperatura de retirada';
   static const pickupTemperature = 'Temperatura de retirada';
   static const confirmPickup = 'Confirmar retirada';
+
+  // Admin
+  static const adminDashboardTitle = 'Painel administrativo';
+  static const adminLabel = 'Administrador';
 
   // Receiver
   static const receiverHomeTitle = 'Início do recebimento';
