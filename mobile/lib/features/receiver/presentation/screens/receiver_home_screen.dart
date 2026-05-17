@@ -73,7 +73,10 @@ class _ReceiverHomeScreenState extends State<ReceiverHomeScreen> {
   Future<void> _openReceiving(RouteResponseDto route) async {
     final result = await Navigator.of(context).pushNamed(
       AppRoutes.receiving,
-      arguments: route,
+      arguments: {
+        'route': route,
+        'receiverUser': widget.user,
+      },
     );
 
     if (result == true) {
