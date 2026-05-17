@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/widgets/app_card.dart';
 import 'package:mobile/core/widgets/app_primary_button.dart';
+import 'package:mobile/features/auth/domain/models/auth_user.dart';
 import 'package:mobile/features/start_route/data/services/start_route_service.dart';
 import 'package:mobile/features/start_route/domain/models/route_draft.dart';
 import 'package:mobile/features/start_route/presentation/widgets/route_dropdown_field.dart';
@@ -20,20 +22,69 @@ class _StartRouteScreenState extends State<StartRouteScreen> {
 
   final TextEditingController _routeNameController = TextEditingController();
   final TextEditingController _bagController = TextEditingController();
+  final TextEditingController _shiftController = TextEditingController();
   final TextEditingController _notesController = TextEditingController();
 
   final StartRouteService _startRouteService = StartRouteService();
 
-  String? _selectedVehicle = 'carro';
-  String? _selectedShift = 'manha';
+  String _selectedVehicle = 'moto';
+  late final String _selectedShift;
   bool _isSubmitting = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final now = DateTime.now();
+    _selectedShift = _inferShift(now);
+    _shiftController.text = _formatShift(_selectedShift);
+    _routeNameController.text = _generateRouteName(now);
+    _bagController.text = _generateBagId(now);
+  }
 
   @override
   void dispose() {
     _routeNameController.dispose();
     _bagController.dispose();
+    _shiftController.dispose();
     _notesController.dispose();
     super.dispose();
+  }
+
+  String _inferShift(DateTime dateTime) {
+    final hour = dateTime.hour;
+    if (hour >= 6 && hour <= 11) return 'manha';
+    if (hour >= 12 && hour <= 17) return 'tarde';
+    return 'noite';
+  }
+
+  String _formatShift(String value) {
+    switch (value) {
+      case 'manha':
+        return 'Manhã';
+      case 'tarde':
+        return 'Tarde';
+      case 'noite':
+        return 'Noite';
+      default:
+        return value;
+    }
+  }
+
+  String _timestampToken(DateTime dateTime) {
+    final year = dateTime.year.toString().padLeft(4, '0');
+    final month = dateTime.month.toString().padLeft(2, '0');
+    final day = dateTime.day.toString().padLeft(2, '0');
+    final hour = dateTime.hour.toString().padLeft(2, '0');
+    final minute = dateTime.minute.toString().padLeft(2, '0');
+    return '$year$month$day-$hour$minute';
+  }
+
+  String _generateRouteName(DateTime dateTime) {
+    return 'Rota-${_timestampToken(dateTime)}';
+  }
+
+  String _generateBagId(DateTime dateTime) {
+    return 'BAG-${_timestampToken(dateTime)}';
   }
 
   Future<void> _startRoute() async {
@@ -43,8 +94,8 @@ class _StartRouteScreenState extends State<StartRouteScreen> {
 
     final draft = RouteDraft(
       routeName: _routeNameController.text.trim(),
-      vehicleType: _selectedVehicle!,
-      shift: _selectedShift!,
+      vehicleType: _selectedVehicle,
+      shift: _selectedShift,
       bagId: _bagController.text.trim(),
       notes: _notesController.text.trim(),
       createdAt: DateTime.now(),
@@ -59,22 +110,28 @@ class _StartRouteScreenState extends State<StartRouteScreen> {
 
       if (!mounted) return;
 
+      final driverUser =
+          ModalRoute.of(context)?.settings.arguments as AuthUser?;
+
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Route #${createdRoute.id} started successfully'),
+          content: Text('${AppStrings.routeStartedSuccessfully} #${createdRoute.id}'),
         ),
       );
 
       Navigator.of(context).pushReplacementNamed(
         AppRoutes.activeRoute,
-        arguments: createdRoute,
+        arguments: {
+          'route': createdRoute,
+          'driverUser': driverUser,
+        },
       );
     } catch (error) {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to start route: $error'),
+          content: Text('${AppStrings.startRouteError}: $error'),
         ),
       );
     } finally {
@@ -88,7 +145,7 @@ class _StartRouteScreenState extends State<StartRouteScreen> {
 
   String? _validateRequiredText(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
-      return '$fieldName is required';
+      return '$fieldName ${AppStrings.requiredSuffix}';
     }
 
     return null;
@@ -96,7 +153,7 @@ class _StartRouteScreenState extends State<StartRouteScreen> {
 
   String? _validateDropdown(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
-      return '$fieldName is required';
+      return '$fieldName ${AppStrings.requiredSuffix}';
     }
 
     return null;
@@ -106,7 +163,7 @@ class _StartRouteScreenState extends State<StartRouteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Start Route'),
+        title: const Text(AppStrings.startRouteTitle),
         backgroundColor: Colors.transparent,
       ),
       body: Container(
@@ -139,7 +196,7 @@ class _StartRouteScreenState extends State<StartRouteScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Route details',
+                          AppStrings.routeDetailsTitle,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -148,7 +205,7 @@ class _StartRouteScreenState extends State<StartRouteScreen> {
                         ),
                         const SizedBox(height: 6),
                         const Text(
-                          'Fill in the operational details before enabling location tracking.',
+                          AppStrings.routeDetailsDescription,
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.textSecondary,
@@ -157,16 +214,20 @@ class _StartRouteScreenState extends State<StartRouteScreen> {
                         ),
                         const SizedBox(height: 18),
                         RouteTextField(
-                          label: 'Route name',
-                          hintText: 'e.g. Morning Collection Route',
+                          label: AppStrings.routeNameGeneratedLabel,
+                          hintText: AppStrings.routeNameGeneratedHint,
                           controller: _routeNameController,
                           prefixIcon: Icons.route_rounded,
+                          readOnly: true,
                           validator: (value) =>
-                              _validateRequiredText(value, 'Route name'),
+                              _validateRequiredText(
+                                value,
+                                AppStrings.routeNameGeneratedLabel,
+                              ),
                         ),
                         const SizedBox(height: 16),
                         RouteDropdownField<String>(
-                          label: 'Vehicle type',
+                          label: AppStrings.vehicleTypeLabel,
                           value: _selectedVehicle,
                           prefixIcon: Icons.local_shipping_rounded,
                           items: const [
@@ -184,60 +245,51 @@ class _StartRouteScreenState extends State<StartRouteScreen> {
                             ),
                           ],
                           onChanged: (value) {
+                            if (value == null) return;
                             setState(() {
                               _selectedVehicle = value;
                             });
                           },
                           validator: (value) =>
-                              _validateDropdown(value, 'Vehicle type'),
-                        ),
-                        const SizedBox(height: 16),
-                        RouteDropdownField<String>(
-                          label: 'Shift',
-                          value: _selectedShift,
-                          prefixIcon: Icons.schedule_rounded,
-                          items: const [
-                            DropdownMenuItem(
-                              value: 'manha',
-                              child: Text('Manhã'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'tarde',
-                              child: Text('Tarde'),
-                            ),
-                            DropdownMenuItem(
-                              value: 'noite',
-                              child: Text('Noite'),
-                            ),
-                          ],
-                          onChanged: (value) {
-                            setState(() {
-                              _selectedShift = value;
-                            });
-                          },
-                          validator: (value) =>
-                              _validateDropdown(value, 'Shift'),
+                              _validateDropdown(
+                                value,
+                                AppStrings.vehicleTypeLabel,
+                              ),
                         ),
                         const SizedBox(height: 16),
                         RouteTextField(
-                          label: 'Bag / container ID',
-                          hintText: 'e.g. BAG-01',
+                          label: AppStrings.shiftLabelAuto,
+                          hintText: AppStrings.shiftAutoHint,
+                          controller: _shiftController,
+                          prefixIcon: Icons.schedule_rounded,
+                          readOnly: true,
+                        ),
+                        const SizedBox(height: 16),
+                        RouteTextField(
+                          label: AppStrings.bagIdLabel,
+                          hintText: AppStrings.bagIdGeneratedHint,
                           controller: _bagController,
                           prefixIcon: Icons.inventory_2_rounded,
+                          readOnly: true,
                           validator: (value) =>
-                              _validateRequiredText(value, 'Bag / container ID'),
+                              _validateRequiredText(
+                                value,
+                                AppStrings.bagIdLabel,
+                              ),
                         ),
                         const SizedBox(height: 16),
                         RouteTextField(
-                          label: 'Notes',
-                          hintText: 'Add any operational note for this route',
+                          label: AppStrings.notes,
+                          hintText: AppStrings.routeNotesHint,
                           controller: _notesController,
                           prefixIcon: Icons.notes_rounded,
                           maxLines: 4,
                         ),
                         const SizedBox(height: 22),
                         AppPrimaryButton(
-                          label: _isSubmitting ? 'Starting...' : 'Start route',
+                          label: _isSubmitting
+                              ? AppStrings.startRouteInProgress
+                              : AppStrings.startRoute,
                           icon: _isSubmitting
                               ? Icons.hourglass_top_rounded
                               : Icons.play_arrow_rounded,
@@ -287,7 +339,7 @@ class _StartRouteHero extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Initialize transport',
+            AppStrings.initializeTransportTitle,
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,
@@ -297,7 +349,7 @@ class _StartRouteHero extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            'Define vehicle, bag and route context before starting field operations.',
+            AppStrings.initializeTransportDescription,
             style: TextStyle(
               color: Colors.white,
               fontSize: 14,

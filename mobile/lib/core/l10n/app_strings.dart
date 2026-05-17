@@ -98,6 +98,35 @@ class AppStrings {
   static const saveCollectionInProgress = 'Salvando...';
   static const addCollectionError = 'Não foi possível adicionar a coleta.';
   static const backToHome = 'Voltar ao início';
+  static const startRouteTitle = 'Iniciar rota';
+  static const initializeTransportTitle = 'Iniciar transporte';
+  static const initializeTransportDescription =
+      'Defina o veículo e revise o contexto operacional antes de iniciar as atividades em campo.';
+  static const routeDetailsTitle = 'Detalhes da rota';
+  static const routeDetailsDescription =
+      'Revise os dados operacionais antes de habilitar o acompanhamento da rota.';
+  static const routeNameGeneratedLabel = 'Nome da rota';
+  static const routeNameGeneratedHint = 'Gerado automaticamente';
+  static const vehicleTypeLabel = 'Tipo de veículo';
+  static const shiftLabelAuto = 'Turno';
+  static const shiftAutoHint = 'Definido automaticamente pelo horário local';
+  static const bagIdGeneratedHint = 'Gerado automaticamente';
+  static const routeNotesHint = 'Adicione observações operacionais para esta rota';
+  static const startRouteInProgress = 'Iniciando...';
+  static const routeStartedSuccessfully = 'Rota iniciada com sucesso.';
+  static const startRouteError = 'Não foi possível iniciar a rota.';
+  static const routeSummaryStatus = 'ROTA FINALIZADA';
+  static const routeSummaryDescription =
+      'Operação de transporte concluída com sucesso. Revise abaixo o resumo da rota.';
+  static const startedLabel = 'Iniciada';
+  static const operationalSummaryTitle = 'Resumo operacional';
+  static const temperatureSummaryTitle = 'Resumo de temperatura';
+  static const minLabel = 'Mín.';
+  static const avgLabel = 'Média';
+  static const maxLabel = 'Máx.';
+  static const noCollectionsRegisteredTitle = 'Nenhuma coleta registrada';
+  static const noCollectionsRegisteredDescription =
+      'Esta rota foi concluída sem registros de coleta.';
 
   // Admin
   static const adminDashboardTitle = 'Painel administrativo';

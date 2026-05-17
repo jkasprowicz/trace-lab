@@ -8,6 +8,7 @@ class RouteTextField extends StatelessWidget {
   final IconData? prefixIcon;
   final int maxLines;
   final TextInputType? keyboardType;
+  final bool readOnly;
   final String? Function(String?)? validator;
 
   const RouteTextField({
@@ -18,6 +19,7 @@ class RouteTextField extends StatelessWidget {
     this.prefixIcon,
     this.maxLines = 1,
     this.keyboardType,
+    this.readOnly = false,
     this.validator,
   });
 
@@ -39,6 +41,7 @@ class RouteTextField extends StatelessWidget {
           controller: controller,
           maxLines: maxLines,
           keyboardType: keyboardType,
+          readOnly: readOnly,
           validator: validator,
           decoration: InputDecoration(
             hintText: hintText,

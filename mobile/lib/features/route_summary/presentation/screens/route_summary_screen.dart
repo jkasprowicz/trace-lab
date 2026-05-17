@@ -5,8 +5,10 @@ import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/widgets/app_primary_button.dart';
 import 'package:mobile/core/widgets/app_section_title.dart';
 import 'package:mobile/features/active_route/presentation/widgets/collection_timeline_tile.dart';
+import 'package:mobile/features/auth/domain/models/auth_user.dart';
 import 'package:mobile/features/collection/data/dto/collection_response_dto.dart';
 import 'package:mobile/features/collection/data/services/collection_service.dart';
+import 'package:mobile/features/driver/presentation/screens/driver_home_screen.dart';
 import 'package:mobile/features/route_summary/presentation/widgets/summary_stat_card.dart';
 import 'package:mobile/features/start_route/data/dto/route_response_dto.dart';
 
@@ -23,11 +25,15 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
   bool _isLoading = true;
   List<CollectionResponseDto> _collections = [];
   late RouteResponseDto _route;
+  AuthUser? _driverUser;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _route = ModalRoute.of(context)!.settings.arguments as RouteResponseDto;
+    final args = ModalRoute.of(context)!.settings.arguments;
+    final argsMap = args is Map<String, dynamic> ? args : null;
+    _route = (argsMap?['route'] as RouteResponseDto?) ?? args as RouteResponseDto;
+    _driverUser = argsMap?['driverUser'] as AuthUser?;
     _loadCollections();
   }
 
@@ -203,7 +209,7 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                           ),
                         ),
                         child: const Text(
-                          'ROUTE FINISHED',
+                          AppStrings.routeSummaryStatus,
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w700,
@@ -223,7 +229,7 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        'Transport operation successfully completed. Review the route summary below.',
+                        AppStrings.routeSummaryDescription,
                         style: TextStyle(
                           color: Colors.white.withAlpha(220),
                           fontSize: 14,
@@ -232,7 +238,7 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                       ),
                       const SizedBox(height: 18),
                       Text(
-                        'Started: ${_formatDateTime(_route.startedAt)}',
+                        '${AppStrings.startedLabel}: ${_formatDateTime(_route.startedAt)}',
                         style: TextStyle(
                           color: Colors.white.withAlpha(220),
                           fontSize: 13,
@@ -240,7 +246,7 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                       ),
                       const SizedBox(height: 6),
                       Text(
-                        'Finished: ${_route.finishedAt != null ? _formatDateTime(_route.finishedAt!) : '--'}',
+                        '${AppStrings.finishedLabel}: ${_route.finishedAt != null ? _formatDateTime(_route.finishedAt!) : '--'}',
                         style: TextStyle(
                           color: Colors.white.withAlpha(220),
                           fontSize: 13,
@@ -250,14 +256,14 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                const AppSectionTitle(title: 'Operational summary'),
+                const AppSectionTitle(title: AppStrings.operationalSummaryTitle),
                 const SizedBox(height: 14),
                 Row(
                   children: [
                     Expanded(
                       child: SummaryStatCard(
                         icon: Icons.local_shipping_rounded,
-                        label: 'Vehicle',
+                        label: AppStrings.vehicleLabel,
                         value: _formatVehicle(_route.vehicleType),
                       ),
                     ),
@@ -265,7 +271,7 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                     Expanded(
                       child: SummaryStatCard(
                         icon: Icons.schedule_rounded,
-                        label: 'Shift',
+                        label: AppStrings.shiftLabel,
                         value: _formatShift(_route.shift),
                       ),
                     ),
@@ -277,7 +283,7 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                     Expanded(
                       child: SummaryStatCard(
                         icon: Icons.inventory_2_rounded,
-                        label: 'Bag ID',
+                        label: AppStrings.bagIdLabel,
                         value: _route.bagId,
                       ),
                     ),
@@ -285,14 +291,14 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                     Expanded(
                       child: SummaryStatCard(
                         icon: Icons.add_location_alt_rounded,
-                        label: 'Collections',
+                        label: AppStrings.collectionsLabel,
                         value: _collections.length.toString(),
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 24),
-                const AppSectionTitle(title: 'Temperature summary'),
+                const AppSectionTitle(title: AppStrings.temperatureSummaryTitle),
                 const SizedBox(height: 14),
                 if (_isLoading)
                   const Center(
@@ -307,7 +313,7 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                       Expanded(
                         child: SummaryStatCard(
                           icon: Icons.south_rounded,
-                          label: 'Min',
+                          label: AppStrings.minLabel,
                           value: _formatTemperatureValue(_temperatureMin()),
                         ),
                       ),
@@ -315,7 +321,7 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                       Expanded(
                         child: SummaryStatCard(
                           icon: Icons.show_chart_rounded,
-                          label: 'Avg',
+                          label: AppStrings.avgLabel,
                           value: _formatTemperatureValue(_temperatureAvg()),
                         ),
                       ),
@@ -323,14 +329,14 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                       Expanded(
                         child: SummaryStatCard(
                           icon: Icons.north_rounded,
-                          label: 'Max',
+                          label: AppStrings.maxLabel,
                           value: _formatTemperatureValue(_temperatureMax()),
                         ),
                       ),
                     ],
                   ),
                   const SizedBox(height: 24),
-                  const AppSectionTitle(title: 'Collection timeline'),
+                  const AppSectionTitle(title: AppStrings.collectionTimelineTitle),
                   const SizedBox(height: 12),
                   if (_collections.isEmpty)
                     Container(
@@ -350,7 +356,7 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                           ),
                           SizedBox(height: 12),
                           Text(
-                            'No collections registered',
+                            AppStrings.noCollectionsRegisteredTitle,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.w700,
@@ -359,7 +365,7 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                           ),
                           SizedBox(height: 6),
                           Text(
-                            'This route was completed without collection records.',
+                            AppStrings.noCollectionsRegisteredDescription,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 13,
@@ -394,6 +400,16 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                   label: AppStrings.backToHome,
                   icon: Icons.home_rounded,
                   onPressed: () {
+                    if (_driverUser != null) {
+                      Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (_) => DriverHomeScreen(user: _driverUser!),
+                        ),
+                        (route) => false,
+                      );
+                      return;
+                    }
+
                     Navigator.of(context).pushNamedAndRemoveUntil(
                       AppRoutes.home,
                       (route) => false,

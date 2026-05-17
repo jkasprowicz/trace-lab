@@ -8,6 +8,7 @@ import 'package:mobile/features/active_route/data/services/active_route_service.
 import 'package:mobile/features/active_route/presentation/widgets/active_route_header.dart';
 import 'package:mobile/features/active_route/presentation/widgets/active_route_summary_card.dart';
 import 'package:mobile/features/active_route/presentation/widgets/collection_timeline_tile.dart';
+import 'package:mobile/features/auth/domain/models/auth_user.dart';
 import 'package:mobile/features/collection/data/dto/collection_response_dto.dart';
 import 'package:mobile/features/collection/data/services/collection_service.dart';
 import 'package:mobile/features/start_route/data/dto/route_response_dto.dart';
@@ -27,11 +28,15 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
   bool _isFinishingRoute = false;
   List<CollectionResponseDto> _collections = [];
   late RouteResponseDto _route;
+  AuthUser? _driverUser;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _route = ModalRoute.of(context)!.settings.arguments as RouteResponseDto;
+    final args = ModalRoute.of(context)!.settings.arguments;
+    final argsMap = args is Map<String, dynamic> ? args : null;
+    _route = (argsMap?['route'] as RouteResponseDto?) ?? args as RouteResponseDto;
+    _driverUser = argsMap?['driverUser'] as AuthUser?;
     _loadCollections();
   }
 
@@ -131,7 +136,10 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
 
       Navigator.of(context).pushReplacementNamed(
         AppRoutes.routeSummary,
-        arguments: finishedRoute,
+        arguments: {
+          'route': finishedRoute,
+          'driverUser': _driverUser,
+        },
       );
     } catch (error) {
       if (!mounted) return;

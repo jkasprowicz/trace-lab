@@ -57,7 +57,10 @@ class DriverHomeScreen extends StatelessWidget {
                   label: AppStrings.startRoute,
                   icon: Icons.play_arrow_rounded,
                   onPressed: () {
-                    Navigator.of(context).pushNamed(AppRoutes.startRoute);
+                    Navigator.of(context).pushNamed(
+                      AppRoutes.startRoute,
+                      arguments: user,
+                    );
                   },
                 ),
                 const SizedBox(height: 22),
