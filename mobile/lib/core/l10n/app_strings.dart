@@ -40,6 +40,31 @@ class AppStrings {
   static const driverReadyDescription =
       'Inicie sua rota, registre cada ponto de coleta e mantenha a linha do tempo do transporte rastreável.';
   static const startRoute = 'Iniciar rota';
+  static const activeRouteLiveStatus = 'ROTA EM ANDAMENTO';
+  static const activeRouteFinishedStatus = 'ROTA FINALIZADA';
+  static const activeRouteStartedNow = 'Iniciada agora';
+  static const activeRouteClosed = 'Encerrada';
+  static const activeRouteIntro =
+      'Rota em andamento. Acompanhe coletas, registros de temperatura e eventos operacionais em tempo real.';
+  static const activeRouteSummaryTitle = 'Resumo operacional';
+  static const activeRouteSummaryDescription =
+      'Contexto da rota em andamento e metadados do transporte.';
+  static const addCollection = 'Adicionar coleta';
+  static const collectionAddedSuccessfully = 'Coleta adicionada com sucesso.';
+  static const finishRouteTitle = 'Finalizar rota';
+  static const finishRouteConfirmation =
+      'Tem certeza de que deseja finalizar esta rota? Após a finalização, não será possível adicionar novas coletas.';
+  static const finishRouteAction = 'Finalizar';
+  static const routeFinishedSuccessfully = 'Rota finalizada com sucesso.';
+  static const finishRouteError = 'Não foi possível finalizar a rota.';
+  static const routeFinishedLabel = 'Rota finalizada';
+  static const finishingRoute = 'Finalizando...';
+  static const collectionTimelineTitle = 'Linha do tempo das coletas';
+  static const noCollectionsYetTitle = 'Nenhuma coleta registrada ainda';
+  static const noCollectionsYetDescription =
+      'Comece adicionando o primeiro evento de coleta desta rota.';
+  static const collectionTemperatureLabel = 'Temperatura';
+  static const logoutCta = 'Sair da conta';
   static const routeNotStarted = 'Não iniciada';
   static const manualMode = 'Manual';
   static const assignedRoutes = 'Rotas atribuídas';
@@ -56,6 +81,23 @@ class AppStrings {
   static const registerPickupTemperature = 'Registrar temperatura de retirada';
   static const pickupTemperature = 'Temperatura de retirada';
   static const confirmPickup = 'Confirmar retirada';
+  static const addCollectionScreenTitle = 'Adicionar coleta';
+  static const registerPickupTitle = 'Registrar coleta';
+  static const registerPickupDescription =
+      'Registre o local e a temperatura do ponto de coleta atual.';
+  static const collectionDetailsTitle = 'Detalhes da coleta';
+  static const collectionDetailsDescription =
+      'Registre o ponto de retirada e a temperatura da coleta para esta rota.';
+  static const locationNameLabel = 'Nome do local';
+  static const locationNameHint = 'Ex.: Unidade Centro';
+  static const collectionTemperatureFieldLabel = 'Temperatura (°C)';
+  static const collectionTemperatureHint = 'Ex.: 5,2';
+  static const collectionNotesHint =
+      'Adicione observações operacionais desta coleta';
+  static const saveCollection = 'Salvar coleta';
+  static const saveCollectionInProgress = 'Salvando...';
+  static const addCollectionError = 'Não foi possível adicionar a coleta.';
+  static const backToHome = 'Voltar ao início';
 
   // Admin
   static const adminDashboardTitle = 'Painel administrativo';

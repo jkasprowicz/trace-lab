@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/app/routes.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/widgets/app_primary_button.dart';
 import 'package:mobile/core/widgets/app_section_title.dart';
@@ -388,20 +389,9 @@ class _RouteSummaryScreenState extends State<RouteSummaryScreen> {
                           .toList(),
                     ),
                 ],
-                const SizedBox(height: 12),
-                  AppPrimaryButton(
-                    label: 'Proceed to receiving',
-                    icon: Icons.assignment_turned_in_rounded,
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        AppRoutes.receiving,
-                        arguments: _route,
-                      );
-                    },
-                  ),
                 const SizedBox(height: 24),
                 AppPrimaryButton(
-                  label: 'Back to home',
+                  label: AppStrings.backToHome,
                   icon: Icons.home_rounded,
                   onPressed: () {
                     Navigator.of(context).pushNamedAndRemoveUntil(

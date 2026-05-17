@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/core/theme/app_colors.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 
 class ActiveRouteHeader extends StatelessWidget {
   final String routeName;
@@ -107,7 +107,7 @@ class ActiveRouteHeader extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            'Route in progress. Track collections, temperature logs and operational events in real time.',
+            AppStrings.activeRouteIntro,
             style: TextStyle(
               color: Colors.white.withAlpha(220),
               fontSize: 14,

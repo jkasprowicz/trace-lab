@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/app/routes.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/widgets/app_primary_button.dart';
 import 'package:mobile/core/widgets/app_section_title.dart';
@@ -75,7 +76,7 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Collection added successfully'),
+          content: Text(AppStrings.collectionAddedSuccessfully),
         ),
       );
     }
@@ -88,19 +89,18 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
           context: context,
           builder: (context) {
             return AlertDialog(
-              title: const Text('Finish route'),
+              title: const Text(AppStrings.finishRouteTitle),
               content: const Text(
-                'Are you sure you want to finish this route? '
-                'After finishing, no new collections can be added.',
+                AppStrings.finishRouteConfirmation,
               ),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(false),
-                  child: const Text('Cancel'),
+                  child: const Text(AppStrings.cancelButton),
                 ),
                 FilledButton(
                   onPressed: () => Navigator.of(context).pop(true),
-                  child: const Text('Finish'),
+                  child: const Text(AppStrings.finishRouteAction),
                 ),
               ],
             );
@@ -125,7 +125,7 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Route finished successfully'),
+          content: Text(AppStrings.routeFinishedSuccessfully),
         ),
       );
 
@@ -138,7 +138,7 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to finish route: $error'),
+          content: Text('${AppStrings.finishRouteError}: $error'),
         ),
       );
     } finally {
@@ -211,8 +211,12 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
               children: [
                 ActiveRouteHeader(
                   routeName: _route.routeName,
-                  statusLabel: _isRouteFinished ? 'ROUTE FINISHED' : 'LIVE ROUTE',
-                  elapsedLabel: _isRouteFinished ? 'Closed' : 'Started now',
+                  statusLabel: _isRouteFinished
+                      ? AppStrings.activeRouteFinishedStatus
+                      : AppStrings.activeRouteLiveStatus,
+                  elapsedLabel: _isRouteFinished
+                      ? AppStrings.activeRouteClosed
+                      : AppStrings.activeRouteStartedNow,
                 ),
                 const SizedBox(height: 20),
                 ActiveRouteSummaryCard(
@@ -224,15 +228,15 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
                 const SizedBox(height: 20),
                 AppPrimaryButton(
                   label: _isRouteFinished
-                      ? 'Route finished'
-                      : 'Add collection',
+                      ? AppStrings.routeFinishedLabel
+                      : AppStrings.addCollection,
                   icon: _isRouteFinished
                       ? Icons.lock_outline_rounded
                       : Icons.add_location_alt_rounded,
                   onPressed: _isRouteFinished ? null : _goToAddCollection,
                 ),
                 const SizedBox(height: 24),
-                const AppSectionTitle(title: 'Collection timeline'),
+                const AppSectionTitle(title: AppStrings.collectionTimelineTitle),
                 const SizedBox(height: 12),
                 if (_isLoadingCollections)
                   const Center(
@@ -259,7 +263,7 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
                         ),
                         SizedBox(height: 12),
                         Text(
-                          'No collections registered yet',
+                          AppStrings.noCollectionsYetTitle,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
@@ -268,7 +272,7 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
                         ),
                         SizedBox(height: 6),
                         Text(
-                          'Start by adding the first pickup event for this route.',
+                          AppStrings.noCollectionsYetDescription,
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 13,
@@ -305,10 +309,10 @@ class _ActiveRouteScreenState extends State<ActiveRouteScreen> {
                       : const Icon(Icons.stop_circle_outlined),
                   label: Text(
                     _isRouteFinished
-                        ? 'Route finished'
+                        ? AppStrings.routeFinishedLabel
                         : _isFinishingRoute
-                            ? 'Finishing...'
-                            : 'Finish route',
+                            ? AppStrings.finishingRoute
+                            : AppStrings.finishRouteTitle,
                   ),
                   style: OutlinedButton.styleFrom(
                     minimumSize: const Size(double.infinity, 56),

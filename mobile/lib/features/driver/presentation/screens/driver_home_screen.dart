@@ -129,10 +129,10 @@ class _DriverHeader extends StatelessWidget {
             ],
           ),
         ),
-        IconButton.filledTonal(
+        FilledButton.tonalIcon(
           onPressed: onLogout,
           icon: const Icon(Icons.logout_rounded),
-          tooltip: AppStrings.logoutButton,
+          label: const Text(AppStrings.logoutButton),
         ),
       ],
     );

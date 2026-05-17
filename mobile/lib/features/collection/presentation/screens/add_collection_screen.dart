@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/widgets/app_card.dart';
 import 'package:mobile/core/widgets/app_primary_button.dart';
-import 'package:mobile/features/collection/data/dto/collection_response_dto.dart';
 import 'package:mobile/features/collection/data/services/collection_service.dart';
 import 'package:mobile/features/collection/domain/models/collection_draft.dart';
 import 'package:mobile/features/collection/presentation/widgets/collection_text_field.dart';
@@ -35,21 +35,21 @@ class _AddCollectionScreenState extends State<AddCollectionScreen> {
 
   String? _validateRequiredText(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
-      return '$fieldName is required';
+      return '$fieldName ${AppStrings.requiredSuffix}';
     }
     return null;
   }
 
   String? _validateTemperature(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Temperature is required';
+      return AppStrings.temperatureRequired;
     }
 
     final normalized = value.replaceAll(',', '.');
     final parsed = double.tryParse(normalized);
 
     if (parsed == null) {
-      return 'Enter a valid temperature';
+      return AppStrings.invalidTemperature;
     }
 
     return null;
@@ -81,7 +81,7 @@ class _AddCollectionScreenState extends State<AddCollectionScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to add collection: $error'),
+          content: Text('${AppStrings.addCollectionError}: $error'),
         ),
       );
     } finally {
@@ -99,7 +99,7 @@ class _AddCollectionScreenState extends State<AddCollectionScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Collection'),
+        title: const Text(AppStrings.addCollectionScreenTitle),
         backgroundColor: Colors.transparent,
       ),
       body: Container(
@@ -132,7 +132,7 @@ class _AddCollectionScreenState extends State<AddCollectionScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Collection details',
+                          AppStrings.collectionDetailsTitle,
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w700,
@@ -141,7 +141,7 @@ class _AddCollectionScreenState extends State<AddCollectionScreen> {
                         ),
                         const SizedBox(height: 6),
                         const Text(
-                          'Register the pickup point and collection temperature for this route.',
+                          AppStrings.collectionDetailsDescription,
                           style: TextStyle(
                             fontSize: 14,
                             color: AppColors.textSecondary,
@@ -150,17 +150,20 @@ class _AddCollectionScreenState extends State<AddCollectionScreen> {
                         ),
                         const SizedBox(height: 18),
                         CollectionTextField(
-                          label: 'Location name',
-                          hintText: 'e.g. Unidade Centro',
+                          label: AppStrings.locationNameLabel,
+                          hintText: AppStrings.locationNameHint,
                           controller: _locationController,
                           prefixIcon: Icons.location_on_rounded,
                           validator: (value) =>
-                              _validateRequiredText(value, 'Location name'),
+                              _validateRequiredText(
+                                value,
+                                AppStrings.locationNameLabel,
+                              ),
                         ),
                         const SizedBox(height: 16),
                         CollectionTextField(
-                          label: 'Temperature (°C)',
-                          hintText: 'e.g. 5.2',
+                          label: AppStrings.collectionTemperatureFieldLabel,
+                          hintText: AppStrings.collectionTemperatureHint,
                           controller: _temperatureController,
                           prefixIcon: Icons.thermostat_rounded,
                           keyboardType: const TextInputType.numberWithOptions(
@@ -170,15 +173,17 @@ class _AddCollectionScreenState extends State<AddCollectionScreen> {
                         ),
                         const SizedBox(height: 16),
                         CollectionTextField(
-                          label: 'Notes',
-                          hintText: 'Add operational notes for this collection',
+                          label: AppStrings.notes,
+                          hintText: AppStrings.collectionNotesHint,
                           controller: _notesController,
                           prefixIcon: Icons.notes_rounded,
                           maxLines: 4,
                         ),
                         const SizedBox(height: 22),
                         AppPrimaryButton(
-                          label: _isSubmitting ? 'Saving...' : 'Save collection',
+                          label: _isSubmitting
+                              ? AppStrings.saveCollectionInProgress
+                              : AppStrings.saveCollection,
                           icon: _isSubmitting
                               ? Icons.hourglass_top_rounded
                               : Icons.check_circle_outline_rounded,
@@ -228,7 +233,7 @@ class _AddCollectionHero extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Register pickup',
+            AppStrings.registerPickupTitle,
             style: TextStyle(
               color: Colors.white,
               fontSize: 24,
@@ -238,7 +243,7 @@ class _AddCollectionHero extends StatelessWidget {
           ),
           SizedBox(height: 10),
           Text(
-            'Capture location and temperature for the current collection point.',
+            AppStrings.registerPickupDescription,
             style: TextStyle(
               color: Colors.white,
               fontSize: 14,

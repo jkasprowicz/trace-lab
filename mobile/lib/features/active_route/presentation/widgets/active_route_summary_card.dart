@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/widgets/app_card.dart';
 
@@ -64,7 +65,7 @@ class ActiveRouteSummaryCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Operational summary',
+            AppStrings.activeRouteSummaryTitle,
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w700,
@@ -73,7 +74,7 @@ class ActiveRouteSummaryCard extends StatelessWidget {
           ),
           const SizedBox(height: 6),
           const Text(
-            'Live route context and transport metadata.',
+            AppStrings.activeRouteSummaryDescription,
             style: TextStyle(
               fontSize: 14,
               color: AppColors.textSecondary,
@@ -85,13 +86,13 @@ class ActiveRouteSummaryCard extends StatelessWidget {
             children: [
               _infoItem(
                 icon: Icons.local_shipping_rounded,
-                label: 'Vehicle',
+                label: AppStrings.vehicleLabel,
                 value: vehicle,
               ),
               const SizedBox(width: 12),
               _infoItem(
                 icon: Icons.schedule_rounded,
-                label: 'Shift',
+                label: AppStrings.shiftLabel,
                 value: shift,
               ),
             ],
@@ -101,13 +102,13 @@ class ActiveRouteSummaryCard extends StatelessWidget {
             children: [
               _infoItem(
                 icon: Icons.inventory_2_rounded,
-                label: 'Bag ID',
+                label: AppStrings.bagIdLabel,
                 value: bagId,
               ),
               const SizedBox(width: 12),
               _infoItem(
                 icon: Icons.add_location_alt_rounded,
-                label: 'Collections',
+                label: AppStrings.collectionsLabel,
                 value: collectionsCount,
               ),
             ],

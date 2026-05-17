@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/core/widgets/app_card.dart';
 
@@ -55,7 +56,7 @@ class CollectionTimelineTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  'Temperature: $temperature',
+                  '${AppStrings.collectionTemperatureLabel}: $temperature',
                   style: const TextStyle(
                     fontSize: 13,
                     color: AppColors.textSecondary,
