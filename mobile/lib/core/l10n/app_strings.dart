@@ -63,7 +63,21 @@ class AppStrings {
 
   // Receiver
   static const receiverHomeTitle = 'Início do recebimento';
+  static const receiverMode = 'Modo recebimento';
   static const pendingRoutes = 'Rotas pendentes';
+  static const pendingReceivingTitle = 'Recebimentos pendentes';
+  static const receivingQueueTitle = 'Fila de recebimento';
+  static const receivingQueueDescription =
+      'Revise as rotas finalizadas e registre a temperatura de recebimento, a condição das amostras e as observações.';
+  static const routesWaitingSuffix = 'rotas aguardando';
+  static const bagLabel = 'Bolsa';
+  static const collectionsLabel = 'coletas';
+  static const finishedLabel = 'Finalizada';
+  static const noRoutesWaitingTitle = 'Nenhuma rota aguardando';
+  static const noRoutesWaitingDescription =
+      'As rotas de transporte finalizadas aparecerão aqui quando estiverem prontas para o recebimento.';
+  static const pendingRoutesLoadError =
+      'Não foi possível carregar as rotas pendentes.';
   static const receiveRoute = 'Receber rota';
   static const receiverName = 'Nome do recebedor';
   static const registerReceivingTemperature = 'Registrar temperatura de recebimento';

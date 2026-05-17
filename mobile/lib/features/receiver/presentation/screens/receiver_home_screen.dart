@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobile/app/routes.dart';
+import 'package:mobile/core/l10n/app_strings.dart';
 import 'package:mobile/core/theme/app_colors.dart';
 import 'package:mobile/features/auth/data/services/auth_service.dart';
 import 'package:mobile/features/auth/domain/models/auth_user.dart';
@@ -48,7 +49,7 @@ class _ReceiverHomeScreenState extends State<ReceiverHomeScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Failed to load pending routes: $error'),
+          content: Text('${AppStrings.pendingRoutesLoadError} $error'),
         ),
       );
     } finally {
@@ -82,7 +83,7 @@ class _ReceiverHomeScreenState extends State<ReceiverHomeScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Receiving registered successfully'),
+          content: Text(AppStrings.receivingRegisteredSuccessfully),
         ),
       );
     }
@@ -147,7 +148,7 @@ class _ReceiverHomeScreenState extends State<ReceiverHomeScreen> {
                   ),
                   const SizedBox(height: 24),
                   const Text(
-                    'Pending receiving',
+                    AppStrings.pendingReceivingTitle,
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w800,
@@ -232,7 +233,7 @@ class _ReceiverHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Text(
-                'Receiving mode',
+                AppStrings.receiverMode,
                 style: TextStyle(
                   fontSize: 13,
                   fontWeight: FontWeight.w600,
@@ -254,6 +255,7 @@ class _ReceiverHeader extends StatelessWidget {
         IconButton.filledTonal(
           onPressed: onLogout,
           icon: const Icon(Icons.logout_rounded),
+          tooltip: AppStrings.logoutButton,
         ),
       ],
     );
@@ -295,7 +297,7 @@ class _QueueHeroCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Receiving queue',
+            AppStrings.receivingQueueTitle,
             style: TextStyle(
               color: Colors.white,
               fontSize: 28,
@@ -305,7 +307,7 @@ class _QueueHeroCard extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            'Review finished routes and register receiving temperature, integrity status and notes.',
+            AppStrings.receivingQueueDescription,
             style: TextStyle(
               color: Colors.white.withAlpha(220),
               fontSize: 15,
@@ -330,7 +332,7 @@ class _QueueHeroCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 12),
                 Text(
-                  '$pendingCount routes waiting',
+                  '$pendingCount ${AppStrings.routesWaitingSuffix}',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -413,7 +415,7 @@ class _PendingRouteCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      '$vehicle • Bag $bagId • $collectionsCount collections',
+                      '$vehicle • ${AppStrings.bagLabel} $bagId • $collectionsCount ${AppStrings.collectionsLabel}',
                       style: const TextStyle(
                         color: AppColors.textSecondary,
                         fontSize: 13,
@@ -421,7 +423,7 @@ class _PendingRouteCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      'Finished: $finishedAt',
+                      '${AppStrings.finishedLabel}: $finishedAt',
                       style: const TextStyle(
                         color: AppColors.textTertiary,
                         fontSize: 12,
@@ -464,7 +466,7 @@ class _EmptyReceivingState extends StatelessWidget {
           ),
           SizedBox(height: 12),
           Text(
-            'No routes waiting',
+            AppStrings.noRoutesWaitingTitle,
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.w800,
@@ -473,7 +475,7 @@ class _EmptyReceivingState extends StatelessWidget {
           ),
           SizedBox(height: 6),
           Text(
-            'Finished transport routes will appear here when they are ready for receiving.',
+            AppStrings.noRoutesWaitingDescription,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 13,
