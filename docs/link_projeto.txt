@@ -1,0 +1,8 @@
+Projeto TRACE-LAB no GitHub:
+https://github.com/jkasprowicz/trace-lab
+
+Documentação principal:
+README.md
+
+Documentação técnica complementar:
+docs/projeto_trace_lab.md
