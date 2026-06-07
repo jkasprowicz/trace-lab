@@ -141,17 +141,88 @@ trace-lab/
         └── features/
 ```
 
-## Execução Local
+
+# Instalação e Execução
+
+## Pré-requisitos
 
 ### Backend
 
+- Python 3.11+
+- pip
+
+### Mobile
+
+- Flutter SDK 3.x
+- Android Studio
+- Android SDK
+
+---
+
+## Clonando o Projeto
+
+```bash
+git clone https://github.com/jkasprowicz/trace-lab.git
+cd trace-lab
+```
+
+---
+
+## Configuração do Backend
+
+Acesse a pasta:
+
 ```bash
 cd backend
+```
+
+Crie o ambiente virtual:
+
+```bash
+python -m venv .venv
+```
+
+Ative:
+
+### Linux/MacOS
+
+```bash
+source .venv/bin/activate
+```
+
+### Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+Instale as dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+Aplicar migrations:
+
+```bash
 python manage.py migrate
+```
+
+Executar servidor:
+
+```bash
 python manage.py runserver
 ```
 
-### Mobile
+A API estará disponível em:
+
+```text
+http://127.0.0.1:8000/api/
+```
+
+---
+
+## Configuração do Aplicativo Mobile
 
 ```bash
 cd mobile
@@ -159,24 +230,49 @@ flutter pub get
 flutter run
 ```
 
-O aplicativo está configurado para consumir a API em:
+---
+
+## Banco de Dados
+
+O sistema utiliza SQLite para simplificar a execução local.
+
+O arquivo do banco é criado automaticamente pelo Django:
 
 ```text
-http://127.0.0.1:8000/api
+backend/db.sqlite3
 ```
 
-## Validação
+Não é necessária a instalação de servidores de banco de dados externos.
 
-Comandos recomendados pelo projeto:
+---
+
+## Fluxo Demonstrado
+
+1. Login
+2. Início de rota
+3. Registro de coleta
+4. Registro de temperatura
+5. Finalização da rota
+6. Recebimento de amostras
+7. Registro de recebimento
+8. Rastreabilidade completa da operação
+
+---
+
+## Testes e Validação
+
+Backend:
 
 ```bash
-cd mobile
-flutter analyze
-flutter test
-
-cd ../backend
 python manage.py check
 python manage.py test
+```
+
+Mobile:
+
+```bash
+flutter analyze
+flutter test
 ```
 
 ## Limitações Atuais Observadas
