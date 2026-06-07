@@ -8,6 +8,21 @@ O projeto implementa um fluxo operacional enxuto e orientado por perfis:
 - `Recebedor`: visualiza rotas finalizadas e registra o recebimento.
 - `Administrador`: possui acesso a uma área administrativa inicial.
 
+## Capturas do Sistema
+
+| Login | Modo Motorista |
+|---|---|
+| ![Login](docs/images/tela-login.png) | ![Modo Motorista](docs/images/tela-driver.png) |
+
+| Início da Rota | Rota em Andamento |
+|---|---|
+| ![Iniciar Rota](docs/images/iniciar-rota.png) | ![Rota em Andamento](docs/images/rota-em-andamento.png) |
+
+| Registrar Coleta | Registrar Recebimento |
+|---|---|
+| ![Registrar Coleta](docs/images/registrar-coleta.png) | ![Registrar Recebimento](docs/images/registrar-recebimento.png) |
+
+
 ## Visão Geral
 
 O TRACE-LAB foi estruturado para apoiar a rastreabilidade de amostras durante o deslocamento entre pontos de coleta e o laboratório. O sistema registra dados essenciais do transporte, como rota, veículo, turno, bolsa de transporte, temperaturas e observações operacionais.
